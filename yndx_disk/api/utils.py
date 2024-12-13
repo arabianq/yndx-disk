@@ -16,14 +16,14 @@ def generate_headers(token: str) -> dict:
     return headers
 
 
-def parse_path(path: str) -> str:
+def parse_path(path: str, prefix: str = "disk:/") -> str:
+    path = str(Path(path))   # Some kind of check is path valid or not =P
+
     if path.startswith("/"):
-        path = "disk:/" + path[1:]
-    elif not path.startswith("disk:/"):
-        path = "disk:/" + path
+        path = prefix + path[1:]
+    elif not path.startswith(prefix):
+        path = prefix + path
 
-    path = Path(path)   # Some kind of check is path valid or not =P
-
-    return str(path)
+    return path
 
 
