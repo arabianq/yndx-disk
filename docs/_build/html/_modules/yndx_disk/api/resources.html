@@ -1,0 +1,851 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>yndx_disk.api.resources &#8212; yndx_disk 0.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../_static/documentation_options.js?v=e1a75a79"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/yndx_disk/api/resources';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">yndx_disk 0.1 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../modules.html">yndx_disk</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../yndx_disk.html">yndx_disk package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../yndx_disk.api.html">yndx_disk.api package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../yndx_disk.clients.html">yndx_disk.clients package</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for yndx_disk.api.resources</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">httpx</span>
+<span class="kn">import</span> <span class="nn">yndx_disk.api.utils</span> <span class="k">as</span> <span class="nn">utils</span>
+
+
+<span class="n">BASE_URL</span> <span class="o">=</span> <span class="s2">&quot;https://cloud-api.yandex.net/v1/disk/resources&quot;</span>
+
+
+<div class="viewcode-block" id="delete">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.delete">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">md5</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">force_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+          <span class="n">permanently</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Delete a file or directory from the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the file or directory to be deleted.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - md5 (str, optional): The MD5 hash of the file to be deleted. Defaults to &quot;&quot;.</span>
+<span class="sd">    - force_async (bool, optional): Whether to force asynchronous deletion. Defaults to False.</span>
+<span class="sd">    - permanently (bool, optional): Whether to delete the file permanently. Defaults to False.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the deletion operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;md5&quot;</span><span class="p">:</span> <span class="n">md5</span><span class="p">,</span>
+                <span class="s2">&quot;force_async&quot;</span><span class="p">:</span> <span class="n">force_async</span><span class="p">,</span>
+                <span class="s2">&quot;permanently&quot;</span><span class="p">:</span> <span class="n">permanently</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="get_info">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.get_info">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">preview_size</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">preview_crop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get information about a file or directory on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the file or directory to get information about.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_size (str, optional): The size of the preview to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - sort (str, optional): The sorting order of the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_crop (bool, optional): Whether to crop the preview. Defaults to False.</span>
+<span class="sd">    - limit (int, optional): The maximum number of items to return in the response. Defaults to 100.</span>
+<span class="sd">    - offset (int, optional): The number of items to skip before returning the response. Defaults to 0.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server containing the information about the file or directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;preview_size&quot;</span><span class="p">:</span> <span class="n">preview_size</span><span class="p">,</span>
+                <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="n">sort</span><span class="p">,</span>
+                <span class="s2">&quot;preview_crop&quot;</span><span class="p">:</span> <span class="n">preview_crop</span><span class="p">,</span>
+                <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+                <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="update_info">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.update_info">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">update_info</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Update information about a file or directory on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the file or directory to update.</span>
+<span class="sd">    - body (dict): The new information to be updated.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the update operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="n">body</span><span class="p">,</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="mkdir">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.mkdir">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">mkdir</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a new directory on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the new directory to be created.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the creation operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="copy">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.copy">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">from_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">to_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">force_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+               <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copy a file or directory from one location to another on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - from_path (str): The path of the file or directory to be copied.</span>
+<span class="sd">    - to_path (str): The path where the file or directory should be copied to.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - force_async (bool, optional): Whether to force asynchronous copying. Defaults to False.</span>
+<span class="sd">    - overwrite (bool, optional): Whether to overwrite the destination file or directory if it already exists. Defaults to False.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the copy operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/copy&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">from_path</span><span class="p">),</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">to_path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;force_async&quot;</span><span class="p">:</span> <span class="n">force_async</span><span class="p">,</span>
+                <span class="s2">&quot;overwrite&quot;</span><span class="p">:</span> <span class="n">overwrite</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="get_url">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.get_url">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_url</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the download URL for a file or directory on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the file or directory to get the download URL for.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server containing the download URL for the file or directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/download&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="get_all_files">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.get_all_files">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_all_files</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">media_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">preview_size</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">sort</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                        <span class="n">preview_crop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of all files and directories on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - media_type (str, optional): The media type of the files to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_size (str, optional): The size of the preview to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - sort (str, optional): The sorting order of the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_crop (bool, optional): Whether to crop the preview. Defaults to False.</span>
+<span class="sd">    - limit (int, optional): The maximum number of items to return in the response. Defaults to 100.</span>
+<span class="sd">    - offset (int, optional): The number of items to skip before returning the response. Defaults to 0.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server containing a list of all files and directories.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/files&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;media_type&quot;</span><span class="p">:</span> <span class="n">media_type</span><span class="p">,</span>
+                <span class="s2">&quot;preview_size&quot;</span><span class="p">:</span> <span class="n">preview_size</span><span class="p">,</span>
+                <span class="s2">&quot;sort&quot;</span><span class="p">:</span> <span class="n">sort</span><span class="p">,</span>
+                <span class="s2">&quot;preview_crop&quot;</span><span class="p">:</span> <span class="n">preview_crop</span><span class="p">,</span>
+                <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+                <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+<div class="viewcode-block" id="get_last_uploads">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.get_last_uploads">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_last_uploads</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">media_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">preview_size</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                           <span class="n">preview_crop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of the last uploaded files and directories on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - media_type (str, optional): The media type of the files to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_size (str, optional): The size of the preview to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_crop (bool, optional): Whether to crop the preview. Defaults to False.</span>
+<span class="sd">    - limit (int, optional): The maximum number of items to return in the response. Defaults to 100.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server containing a list of the last uploaded files and directories.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/last-uploaded&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;media_type&quot;</span><span class="p">:</span> <span class="n">media_type</span><span class="p">,</span>
+                <span class="s2">&quot;preview_size&quot;</span><span class="p">:</span> <span class="n">preview_size</span><span class="p">,</span>
+                <span class="s2">&quot;preview_crop&quot;</span><span class="p">:</span> <span class="n">preview_crop</span><span class="p">,</span>
+                <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="move">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.move">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">from_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">to_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">force_async</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+               <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Move a file or directory from one location to another on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - from_path (str): The path of the file or directory to be moved.</span>
+<span class="sd">    - to_path (str): The path where the file or directory should be moved to.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - force_async (bool, optional): Whether to force asynchronous moving. Defaults to False.</span>
+<span class="sd">    - overwrite (bool, optional): Whether to overwrite the destination file or directory if it already exists. Defaults to False.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the move operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/move&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">from_path</span><span class="p">),</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">to_path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;force_async&quot;</span><span class="p">:</span> <span class="n">force_async</span><span class="p">,</span>
+                <span class="s2">&quot;overwrite&quot;</span><span class="p">:</span> <span class="n">overwrite</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="get_all_public">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.get_all_public">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_all_public</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">preview_size</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">type_filter</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                         <span class="n">preview_crop</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a list of all public files and directories on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_size (str, optional): The size of the preview to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - type_filter (str, optional): The type of files to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - preview_crop (bool, optional): Whether to crop the preview. Defaults to False.</span>
+<span class="sd">    - limit (int, optional): The maximum number of items to return in the response. Defaults to 100.</span>
+<span class="sd">    - offset (int, optional): The number of items to skip before returning the response. Defaults to 0.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server containing a list of all public files and directories.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/public&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;preview_size&quot;</span><span class="p">:</span> <span class="n">preview_size</span><span class="p">,</span>
+                <span class="s2">&quot;type_filter&quot;</span><span class="p">:</span> <span class="n">type_filter</span><span class="p">,</span>
+                <span class="s2">&quot;preview_crop&quot;</span><span class="p">:</span> <span class="n">preview_crop</span><span class="p">,</span>
+                <span class="s2">&quot;limit&quot;</span><span class="p">:</span> <span class="n">limit</span><span class="p">,</span>
+                <span class="s2">&quot;offset&quot;</span><span class="p">:</span> <span class="n">offset</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="publish">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.publish">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">publish</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">body</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">allow_address_access</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+              <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Publish a file or directory on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the file or directory to be published.</span>
+<span class="sd">    - body (dict): The information to be published.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - allow_address_access (bool, optional): Whether to allow address access. Defaults to False.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the publish operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/publish&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;body&quot;</span><span class="p">:</span> <span class="n">body</span><span class="p">,</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;allow_address_access&quot;</span><span class="p">:</span> <span class="n">allow_address_access</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="unpublish">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.unpublish">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">unpublish</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unpublish a file or directory on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the file or directory to be unpublished.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the unpublish operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/unpublish&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="get_upload_url">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.get_upload_url">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">get_upload_url</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the upload URL for a file or directory on the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path of the file or directory to get the upload URL for.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - overwrite (bool, optional): Whether to overwrite the file or directory if it already exists. Defaults to False.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server containing the upload URL for the file or directory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/upload&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;overwrite&quot;</span><span class="p">:</span> <span class="n">overwrite</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="upload">
+<a class="viewcode-back" href="../../../yndx_disk.api.html#yndx_disk.api.resources.upload">[docs]</a>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">upload</span><span class="p">(</span><span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">upload_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fields</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">disable_redirects</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">httpx</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Upload a file or directory to the disk.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">    - token (str): The authentication token for the disk.</span>
+<span class="sd">    - path (str): The path where the file or directory should be uploaded.</span>
+<span class="sd">    - upload_url (str): The URL to upload the file or directory to.</span>
+<span class="sd">    - fields (str, optional): The fields to be included in the response. Defaults to &quot;&quot;.</span>
+<span class="sd">    - disable_redirects (bool, optional): Whether to disable redirects. Defaults to False.</span>
+<span class="sd">    - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">    - httpx.Response: The response from the server after the upload operation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">BASE_URL</span> <span class="o">+</span> <span class="s2">&quot;/upload&quot;</span>
+
+    <span class="k">async</span> <span class="k">with</span> <span class="n">httpx</span><span class="o">.</span><span class="n">AsyncClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">client</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">utils</span><span class="o">.</span><span class="n">generate_headers</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">),</span>
+            <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">utils</span><span class="o">.</span><span class="n">parse_path</span><span class="p">(</span><span class="n">path</span><span class="p">),</span>
+                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">upload_url</span><span class="p">,</span>
+                <span class="s2">&quot;fields&quot;</span><span class="p">:</span> <span class="n">fields</span><span class="p">,</span>
+                <span class="s2">&quot;disable_redirects&quot;</span><span class="p">:</span> <span class="n">disable_redirects</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+        <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span></div>
+
+
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Alexander Tarasov
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024, Alexander Tarasov.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
