@@ -1,0 +1,2 @@
+class YandexDiskAPIException(Exception):
+    pass
