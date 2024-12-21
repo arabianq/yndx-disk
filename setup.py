@@ -13,7 +13,7 @@ setup(
     description="Wrapper for yandex disk rest api",
     long_description=open('README.md').read(),
     long_description_content_type="text/markdown",
-    url="https://gitverse.ru/arabianq/yndx_disk",
+    url="https://gitverse.ru/arabian/yndx_disk",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
