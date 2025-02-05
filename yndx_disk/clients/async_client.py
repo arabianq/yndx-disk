@@ -499,6 +499,30 @@ class AsyncDiskClient:
             case _:
                 raise api_exceptions.YandexDiskAPIException(upload_response.status_code, upload_response.text)
 
+    async def get_url(self, path: str = "/") -> str:
+        """
+            Retrieve the URL for a specified path on the disk.
+
+            This method fetches the URL corresponding to the provided path from the Yandex Disk. If the request is successful (status code 200), it returns the URL as a string. If the request fails, it raises a YandexDiskAPIException with the status code and description from the response.
+
+            Parameters:
+            - path (str, optional): The path for which to retrieve the URL. Defaults to "/".
+
+            Returns:
+            - str: The URL associated with the specified path.
+
+            Raises:
+            - YandexDiskAPIException: If the request fails (status code other than 200).
+            """
+        response = await api_resources.get_url(self.token, path)
+
+        response_json = response.json()
+
+        if response.status_code != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+
+        return response_json.get("href", "")
+
     async def listdir_trash(self, path: str = "/", limit: int = 100, offset: int = 0) -> list[File | Directory]:
         """
             List the contents of a directory in the trash on the disk.

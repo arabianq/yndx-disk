@@ -450,7 +450,7 @@ async def get_upload_url(token: str, path: str, fields: str = "", overwrite: boo
             url=url,
             headers=utils.generate_headers(token=token),
             params={
-                "path": utils.parse_path(path),
+                "path": utils.psarse_path(path),
                 "fields": fields,
                 "overwrite": overwrite,
             },

@@ -35,6 +35,9 @@ class DiskClient(AsyncDiskClient):
     def upload_file(self, file_path: str, path: str, overwrite: bool = False, chunk_size: int = 1024) -> None:
         return asyncio.run(super().upload_file(file_path, path, overwrite, chunk_size))
 
+    def get_url(self, path: str = "/") -> str:
+        return asyncio.run(super().get_url(path))
+
     def listdir_trash(self, path: str = "/", limit: int = 100, offset: int = 0) -> list[File | Directory]:
         return asyncio.run(super().listdir_trash(path, limit, offset))
 
