@@ -1,0 +1,22 @@
+Metadata-Version: 2.2
+Name: yndx_disk
+Version: 0.2
+Summary: Wrapper for yandex disk rest api
+Home-page: https://gitverse.ru/arabian/yndx_disk
+Author: Tarasov Alexander
+Author-email: a.tevg@ya.ru
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: httpx
+Requires-Dist: aiofiles
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
