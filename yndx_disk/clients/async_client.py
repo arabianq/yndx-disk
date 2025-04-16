@@ -81,7 +81,7 @@ class AsyncDiskClient:
         """
         Cleanup on exit.
         """
-        loop = asyncio.get_running_loop()
+        loop = asyncio.new_event_loop()
         loop.run_until_complete(self.session.close())
 
     def __del__(self) -> None:
