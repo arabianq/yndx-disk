@@ -1,4 +1,4 @@
-import httpx
+from aiohttp import ClientSession
 
 import yndx_disk.api.disk as api_disk
 import yndx_disk.api.resources as api_resources
@@ -13,8 +13,7 @@ from yndx_disk.classes import File, Directory
 import asyncio
 import aiofiles
 import os
-
-from pprint import pprint
+import atexit
 
 
 class AsyncDiskClient:
@@ -55,7 +54,9 @@ class AsyncDiskClient:
 
     revision: int = None
 
-    def __init__(self, token: str, auto_update_info: bool = True):
+    session: ClientSession = None
+
+    def __init__(self, token: str, auto_update_info: bool = True, session: ClientSession = None):
         """
         Initialize an instance of the AsyncDiskClient class.
 
@@ -69,6 +70,22 @@ class AsyncDiskClient:
         self.token = token
         self.auto_update_info = auto_update_info
 
+        if not session:
+            loop = asyncio.get_running_loop()
+            session = ClientSession(loop=loop)
+        self.session = session
+
+        atexit.register(self._cleanup)
+
+    def _cleanup(self) -> None:
+        """
+        Cleanup on exit.
+        """
+        loop = asyncio.get_running_loop()
+        loop.run_until_complete(self.session.close())
+
+    def __del__(self) -> None:
+        self._cleanup()
 
     async def _wait_for_operation_to_finish(self, operation_id: str) -> bool:
         """
@@ -82,13 +99,16 @@ class AsyncDiskClient:
         Returns:
         - bool: True if the operation is successful, False otherwise.
         """
-        operation_status_response = await api_operations.get_operation_status(self.token, operation_id)
-        operation_status_response_json = operation_status_response.json()
+        operation_status_response = await api_operations.get_operation_status(token=self.token,
+                                                                              operation_id=operation_id,
+                                                                              session=self.session)
+        operation_status_response_json = await operation_status_response.json()
         operation_status = False if operation_status_response_json.get("status", "") == "in-progress" else True
 
         while not operation_status:
-            operation_status_response = await api_operations.get_operation_status(self.token, operation_id)
-            operation_status_response_json = operation_status_response.json()
+            operation_status_response = await api_operations.get_operation_status(self.token, operation_id,
+                                                                                  self.session)
+            operation_status_response_json = await operation_status_response.json()
             operation_status = False if operation_status_response_json.get("status", "") == "in-progress" else True
 
             await asyncio.sleep(0.1)
@@ -97,7 +117,6 @@ class AsyncDiskClient:
             return False
 
         return True
-
 
     async def update_disk_info(self) -> None:
         """
@@ -108,11 +127,11 @@ class AsyncDiskClient:
         Returns:
         - None
         """
-        response = await api_disk.get_disk_info(self.token)
-        response_json = response.json()
+        response = await api_disk.get_disk_info(token=self.token, session=self.session)
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         self.user = response_json.get("user", {})
         self.system_folders = response_json.get("system_folders", {})
@@ -148,48 +167,48 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the object type cannot be determined.
             """
-        response = await api_resources.get_info(self.token, path, limit=0)
+        response = await api_resources.get_info(token=self.token, path=path, session=self.session, limit=0)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         object_type = response_json.get("type", "")
 
         match object_type:
             case "file":
-                return  File(
-                            token=self.token,
-                            created_at=response_json.get("created", ""),
-                            modified_at=response_json.get("modified", ""),
-                            name=response_json.get("name", ""),
-                            path=response_json.get("path", ""),
-                            resource_id=response_json.get("resource_id", ""),
-                            revision=response_json.get("revision", 0),
-                            public_key=response_json.get("public_key", ""),
-                            public_url=response_json.get("public_url", ""),
-                            antivirus_status=response_json.get("antivirus_status", ""),
-                            file_url=response_json.get("file", ""),
-                            preview_url=response_json.get("preview", ""),
-                            md5=response_json.get("md5", ""),
-                            sha256=response_json.get("sha256", ""),
-                            media_type=response_json.get("media_type", ""),
-                            mime_type=response_json.get("mime_type", ""),
-                            size=response_json.get("size", 0),
-                        )
+                return File(
+                    token=self.token,
+                    created_at=response_json.get("created", ""),
+                    modified_at=response_json.get("modified", ""),
+                    name=response_json.get("name", ""),
+                    path=response_json.get("path", ""),
+                    resource_id=response_json.get("resource_id", ""),
+                    revision=response_json.get("revision", 0),
+                    public_key=response_json.get("public_key", ""),
+                    public_url=response_json.get("public_url", ""),
+                    antivirus_status=response_json.get("antivirus_status", ""),
+                    file_url=response_json.get("file", ""),
+                    preview_url=response_json.get("preview", ""),
+                    md5=response_json.get("md5", ""),
+                    sha256=response_json.get("sha256", ""),
+                    media_type=response_json.get("media_type", ""),
+                    mime_type=response_json.get("mime_type", ""),
+                    size=response_json.get("size", 0),
+                )
             case "dir":
-                return  Directory(
-                            token=self.token,
-                            created_at=response_json.get("created", ""),
-                            modified_at=response_json.get("modified", ""),
-                            name=response_json.get("name", ""),
-                            path=response_json.get("path", ""),
-                            resource_id=response_json.get("resource_id", ""),
-                            revision=response_json.get("revision", 0),
-                            public_key=response_json.get("public_key", ""),
-                            public_url=response_json.get("public_url", ""),
-                        )
+                return Directory(
+                    token=self.token,
+                    created_at=response_json.get("created", ""),
+                    modified_at=response_json.get("modified", ""),
+                    name=response_json.get("name", ""),
+                    path=response_json.get("path", ""),
+                    resource_id=response_json.get("resource_id", ""),
+                    revision=response_json.get("revision", 0),
+                    public_key=response_json.get("public_key", ""),
+                    public_url=response_json.get("public_url", ""),
+                )
             case _:
                 raise api_exceptions.YandexDiskAPIException(f"Could not determine object type {path}")
 
@@ -210,12 +229,13 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the object type cannot be determined.
             """
-        response = await api_resources.get_info(self.token, path=path, limit=limit, offset=offset)
+        response = await api_resources.get_info(token=self.token, session=self.session, path=path, limit=limit,
+                                                offset=offset)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         embedded_items = response_json.get("_embedded", {}).get("items", [])
         directory_contents = []
@@ -283,12 +303,13 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the operation fails.
             """
-        response = await api_resources.delete(self.token, path=path, force_async=True, permanently=permanently)
+        response = await api_resources.delete(token=self.token, session=self.session, path=path, force_async=True,
+                                              permanently=permanently)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 202:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 202:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         href = response_json.get("href", "")
         operation_id = href.split("/")[-1]
@@ -317,12 +338,13 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the operation fails.
             """
-        response = await api_resources.move(self.token, source_path, destination_path, force_async=True, overwrite=overwrite)
+        response = await api_resources.move(token=self.token, session=self.session, from_path=source_path,
+                                            to_path=destination_path, force_async=True, overwrite=overwrite)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 202:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 202:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         href = response_json.get("href", "")
         operation_id = href.split("/")[-1]
@@ -348,13 +370,13 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the operation fails.
             """
-        response = await api_resources.copy(self.token, source_path, destination_path, force_async=True,
-                                            overwrite=overwrite)
+        response = await api_resources.copy(token=self.token, session=self.session, from_path=source_path,
+                                            to_path=destination_path, force_async=True, overwrite=overwrite)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 202:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 202:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         href = response_json.get("href", "")
         operation_id = href.split("/")[-1]
@@ -386,33 +408,33 @@ class AsyncDiskClient:
         body = {
             "public_settings": {
                 "read_only": False,
-            "external_organization_id_verbose": {
-                "enabled": False,
-                "value": ""
-            },
-            "password_verbose": {
-                "enabled": False,
-                "value": ""
-            },
-            "available_until": False,
-            "accesses": [
-                {}
-            ],
-            "available_until_verbose": {
-                "enabled": False,
-                "value": 0
-            },
-            "password": "",
-            "external_organization_id": ""
-          }
+                "external_organization_id_verbose": {
+                    "enabled": False,
+                    "value": ""
+                },
+                "password_verbose": {
+                    "enabled": False,
+                    "value": ""
+                },
+                "available_until": False,
+                "accesses": [
+                    {}
+                ],
+                "available_until_verbose": {
+                    "enabled": False,
+                    "value": 0
+                },
+                "password": "",
+                "external_organization_id": ""
+            }
         }
 
-        response = await api_resources.publish(self.token, path, body)
+        response = await api_resources.publish(token=self.token, session=self.session, path=path, body=body)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         if return_public_url:
             obj: File | Directory = await self.get_object(path)
@@ -433,12 +455,12 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails.
             """
-        response = await api_resources.unpublish(self.token, path)
+        response = await api_resources.unpublish(token=self.token, session=self.session, path=path)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
     async def upload_file(self, file_path: str, path: str, overwrite: bool = False, chunk_size: int = 1024) -> None:
         """
@@ -469,12 +491,13 @@ class AsyncDiskClient:
         elif file_size > self.max_file_size:
             raise api_exceptions.YandexDiskAPIException(f"File {file_path} is too large.")
 
-        response = await api_resources.get_upload_url(self.token, path, overwrite=overwrite)
+        response = await api_resources.get_upload_url(token=self.token, session=self.session, path=path,
+                                                      overwrite=overwrite)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         operation_id = response_json.get("operation_id", "")
         upload_url = response_json.get("href", "")
@@ -484,20 +507,16 @@ class AsyncDiskClient:
                 while chunk := await file_.read(chunk_size_):
                     yield chunk
 
-        async with httpx.AsyncClient() as client:
-            async with client.stream("PUT", url=upload_url, data=chunked_file_reader(file_path, chunk_size)) as upload_response:
-                await upload_response.aread()
+        upload_response = await self.session.put(url=upload_url, data=chunked_file_reader(file_path, chunk_size))
 
-        match upload_response.status_code:
-            case 201:
-                if self.auto_update_info:
-                    await self.update_disk_info()
-            case 202:
-                await self._wait_for_operation_to_finish(operation_id)
-                if self.auto_update_info:
-                    await self.update_disk_info()
-            case _:
-                raise api_exceptions.YandexDiskAPIException(upload_response.status_code, upload_response.text)
+        upload_response_json = await upload_response.json()
+
+        if upload_response.status != 202:
+            raise api_exceptions.YandexDiskAPIException(upload_response.status,
+                                                        upload_response_json.get("description", ""))
+
+        if self.auto_update_info:
+            await self.update_disk_info()
 
     async def get_url(self, path: str = "/") -> str:
         """
@@ -514,12 +533,12 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails (status code other than 200).
             """
-        response = await api_resources.get_url(self.token, path)
+        response = await api_resources.get_url(token=self.token, session=self.session, path=path)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         return response_json.get("href", "")
 
@@ -540,12 +559,13 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the object type cannot be determined.
             """
-        response = await api_trash_resources.get_info(self.token, path=path, limit=limit, offset=offset)
+        response = await api_trash_resources.get_info(token=self.token, session=self.session, path=path, limit=limit,
+                                                      offset=offset)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 200:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 200:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         embedded_items = response_json.get("_embedded", {}).get("items", [])
         directory_contents = []
@@ -614,12 +634,12 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the operation fails.
             """
-        response = await api_trash_resources.delete(self.token, path=path, force_async=True)
+        response = await api_trash_resources.delete(token=self.token, session=self.session, path=path, force_async=True)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 202:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 202:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         href = response_json.get("href", "")
         operation_id = href.split("/")[-1]
@@ -648,12 +668,13 @@ class AsyncDiskClient:
             Raises:
             - YandexDiskAPIException: If the request fails or if the operation fails.
             """
-        response = await api_trash_resources.restore(self.token, path, name=new_name, overwrite=overwrite, force_async=True)
+        response = await api_trash_resources.restore(token=self.token, session=self.session, path=path, name=new_name,
+                                                     overwrite=overwrite, force_async=True)
 
-        response_json = response.json()
+        response_json = await response.json()
 
-        if response.status_code != 202:
-            raise api_exceptions.YandexDiskAPIException(response.status_code, response_json.get("description", ""))
+        if response.status != 202:
+            raise api_exceptions.YandexDiskAPIException(response.status, response_json.get("description", ""))
 
         href = response_json.get("href", "")
         operation_id = href.split("/")[-1]

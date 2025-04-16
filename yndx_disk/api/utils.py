@@ -1,11 +1,9 @@
 from pathlib import Path
 
-
 DEFAULT_HEADERS = {
     "Accept": "application/json",
     "Authorization": "OAuth {token}",
 }
-
 
 
 def generate_headers(token: str) -> dict:
@@ -17,7 +15,7 @@ def generate_headers(token: str) -> dict:
 
 
 def parse_path(path: str, prefix: str = "disk:/") -> str:
-    path = str(Path(path))   # Some kind of check is path valid or not =P
+    path = str(Path(path))  # Some kind of check is path valid or not =P
 
     if path.startswith("/"):
         path = prefix + path[1:]
@@ -25,5 +23,3 @@ def parse_path(path: str, prefix: str = "disk:/") -> str:
         path = prefix + path
 
     return path
-
-

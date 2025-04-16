@@ -1,11 +1,12 @@
-import httpx
-import yndx_disk.api.utils as utils
+from aiohttp import ClientSession, ClientResponse
 
+import yndx_disk.api.utils as utils
 
 BASE_URL = "https://cloud-api.yandex.net/v1/disk"
 
 
-async def get_disk_info(token: str, fields: str = "", timeout: int = 30) -> httpx.Response:
+async def get_disk_info(token: str, session: ClientSession = None, fields: str = "",
+                        timeout: int = 30) -> ClientResponse:
     """
     Get information about the disk.
 
@@ -19,14 +20,21 @@ async def get_disk_info(token: str, fields: str = "", timeout: int = 30) -> http
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "fields": fields,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "fields": fields,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response

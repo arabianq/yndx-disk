@@ -1,4 +1,4 @@
-httpx
+aiohttp
 aiofiles
 sphinx
 sphinx-book-theme

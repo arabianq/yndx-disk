@@ -1,12 +1,13 @@
-import httpx
-import yndx_disk.api.utils as utils
+from aiohttp import ClientSession, ClientResponse
 
+import yndx_disk.api.utils as utils
 
 BASE_URL = "https://cloud-api.yandex.net/v1/disk/public/resources"
 
 
-async def get_info(token: str, public_key: str, fields: str = "", path: str = "", preview_size: str = "",
-               sort: str = "", preview_crop: bool = False, limit: int = 100, offset: int = 0, timeout: int = 30) -> httpx.Response:
+async def get_info(token: str, public_key: str, session: ClientSession = None, fields: str = "", path: str = "",
+                   preview_size: str = "", sort: str = "", preview_crop: bool = False, limit: int = 100,
+                   offset: int = 0, timeout: int = 30) -> ClientResponse:
     """
     Get information about a file or directory on the disk.
 
@@ -27,29 +28,37 @@ async def get_info(token: str, public_key: str, fields: str = "", path: str = ""
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "public_key": public_key,
-                "fields": fields,
-                "path": utils.parse_path(path),
-                "preview_size": preview_size,
-                "sort": sort,
-                "preview_crop": preview_crop,
-                "limit": limit,
-                "offset": offset,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    preview_crop = "true" if preview_crop else "false"
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "public_key": public_key,
+            "fields": fields,
+            "path": utils.parse_path(path),
+            "preview_size": preview_size,
+            "sort": sort,
+            "preview_crop": preview_crop,
+            "limit": limit,
+            "offset": offset,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def get_url(token: str, public_key: str, fields: str = "", path: str = "", timeout: int = 30) -> httpx.Response:
+async def get_url(token: str, public_key: str, session: ClientSession = None, fields: str = "", path: str = "",
+                  timeout: int = 30) -> ClientResponse:
     """
     Get the download URL for a file or directory on the disk.
 
@@ -65,24 +74,31 @@ async def get_url(token: str, public_key: str, fields: str = "", path: str = "",
     """
     url = BASE_URL + "/download"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "public_key": public_key,
-                "fields": fields,
-                "path": utils.parse_path(path),
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "public_key": public_key,
+            "fields": fields,
+            "path": utils.parse_path(path),
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def save_to_disk(token: str, public_key: str, fields: str = "", name: str = "", path: str = "", save_path: str = "", force_async: bool = False, timeout: int = 30) -> httpx.Response:
+async def save_to_disk(token: str, public_key: str, session: ClientSession = None, fields: str = "", name: str = "",
+                       path: str = "", save_path: str = "", force_async: bool = False,
+                       timeout: int = 30) -> ClientResponse:
     """
     Save a file or directory from the disk to your own disk.
 
@@ -101,20 +117,28 @@ async def save_to_disk(token: str, public_key: str, fields: str = "", name: str 
     """
     url = BASE_URL + "/save-to-disk"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "public_key": public_key,
-                "fields": fields,
-                "name": name,
-                "path": utils.parse_path(path),
-                "save_path": save_path,
-                "force_async": force_async,
-            },
-            timeout=timeout
-        )
+    force_async = "true" if force_async else "false"
+
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.post(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "public_key": public_key,
+            "fields": fields,
+            "name": name,
+            "path": utils.parse_path(path),
+            "save_path": save_path,
+            "force_async": force_async,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
-

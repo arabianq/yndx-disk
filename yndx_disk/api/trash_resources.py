@@ -1,11 +1,12 @@
-import httpx
-import yndx_disk.api.utils as utils
+from aiohttp import ClientSession, ClientResponse
 
+import yndx_disk.api.utils as utils
 
 BASE_URL = "https://cloud-api.yandex.net/v1/disk/trash/resources"
 
 
-async def delete(token: str, fields: str = "", path: str = "", force_async: bool = False, timeout: int = 30) -> httpx.Response:
+async def delete(token: str, session: ClientSession = None, fields: str = "", path: str = "", force_async: bool = False,
+                 timeout: int = 30) -> ClientResponse:
     """
     Empty the trash on the server.
 
@@ -21,8 +22,13 @@ async def delete(token: str, fields: str = "", path: str = "", force_async: bool
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.delete(
+    if not session:
+        session = ClientSession()
+
+    force_async = "true" if force_async else "false"
+
+    async with session:
+        response = await session.delete(
             url=url,
             headers=utils.generate_headers(token=token),
             params={
@@ -36,9 +42,9 @@ async def delete(token: str, fields: str = "", path: str = "", force_async: bool
     return response
 
 
-
-async def get_info(token: str, path: str, fields: str = "", preview_size: str = "", sort: str = "",
-                            preview_crop: bool = False, limit: int = 100, offset: int = 0, timeout: int = 30) -> httpx.Response:
+async def get_info(token: str, path: str, session: ClientSession = None, fields: str = "", preview_size: str = "",
+                   sort: str = "", preview_crop: bool = False, limit: int = 100, offset: int = 0,
+                   timeout: int = 30) -> ClientResponse:
     """
     Get the content of the trash on the server.
 
@@ -58,8 +64,13 @@ async def get_info(token: str, path: str, fields: str = "", preview_size: str = 
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
+    if not session:
+        session = ClientSession()
+
+    preview_crop = "true" if preview_crop else "false"
+
+    async with session:
+        response = await session.get(
             url=url,
             headers=utils.generate_headers(token=token),
             params={
@@ -77,8 +88,8 @@ async def get_info(token: str, path: str, fields: str = "", preview_size: str = 
     return response
 
 
-async def restore(token: str, path: str, fields: str = "", name: str = "", force_async: bool = False,
-                  overwrite: bool = False, timeout: int = 30) -> httpx.Response:
+async def restore(token: str, path: str, session: ClientSession = None, fields: str = "", name: str = "",
+                  force_async: bool = False, overwrite: bool = False, timeout: int = 30) -> ClientResponse:
     """
     Restore a file or directory from the trash on the server.
 
@@ -96,19 +107,28 @@ async def restore(token: str, path: str, fields: str = "", name: str = "", force
     """
     url = BASE_URL + "/restore"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.put(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": "" if not path else utils.parse_path(path, "trash:/"),
-                "fields": fields,
-                "name": name,
-                "force_async": force_async,
-                "overwrite": overwrite,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    force_async = "true" if force_async else "false"
+    overwrite = "true" if overwrite else "false"
+
+    response = await session.put(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": "" if not path else utils.parse_path(path, "trash:/"),
+            "fields": fields,
+            "name": name,
+            "force_async": force_async,
+            "overwrite": overwrite,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
-

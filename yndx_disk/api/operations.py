@@ -1,11 +1,12 @@
-import httpx
-import yndx_disk.api.utils as utils
+from aiohttp import ClientSession, ClientResponse
 
+import yndx_disk.api.utils as utils
 
 BASE_URL = "https://cloud-api.yandex.net/v1/disk/operations"
 
 
-async def get_operation_status(token: str, operation_id: str, fields: str = "", timeout: int = 30) -> httpx.Response:
+async def get_operation_status(token: str, operation_id: str, session: ClientSession = None, fields: str = "",
+                               timeout: int = 30) -> ClientResponse:
     """
     Get the status of an operation on the server.
 
@@ -20,16 +21,22 @@ async def get_operation_status(token: str, operation_id: str, fields: str = "", 
     """
     url = BASE_URL + f"/{operation_id}"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "operation_id": operation_id,
-                "fields": fields,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "operation_id": operation_id,
+            "fields": fields,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
-

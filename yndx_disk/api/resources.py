@@ -1,12 +1,12 @@
-import httpx
-import yndx_disk.api.utils as utils
+from aiohttp import ClientSession, ClientResponse
 
+import yndx_disk.api.utils as utils
 
 BASE_URL = "https://cloud-api.yandex.net/v1/disk/resources"
 
 
-async def delete(token: str, path: str, fields: str = "", md5: str = "", force_async: bool = False,
-          permanently: bool = False, timeout: int = 30) -> httpx.Response:
+async def delete(token: str, path: str, session: ClientSession = None, fields: str = "", md5: str = "",
+                 force_async: bool = False, permanently: bool = False, timeout: int = 30) -> ClientResponse:
     """
     Delete a file or directory from the disk.
 
@@ -20,29 +20,35 @@ async def delete(token: str, path: str, fields: str = "", md5: str = "", force_a
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the deletion operation.
+    - ClientResponse: The response from the server after the deletion operation.
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.delete(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "fields": fields,
-                "md5": md5,
-                "force_async": force_async,
-                "permanently": permanently,
-            },
-            timeout=timeout
-        )
+    if not session:
+        session = ClientSession()
+
+    force_async = "true" if force_async else "false"
+    permanently = "true" if permanently else "false"
+
+    response = await session.delete(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "fields": fields,
+            "md5": md5,
+            "force_async": force_async,
+            "permanently": permanently,
+        },
+        timeout=timeout
+    )
 
     return response
 
 
-async def get_info(token: str, path: str, fields: str = "", preview_size: str = "", sort: str = "",
-            preview_crop: bool = False, limit: int = 100, offset: int = 0, timeout: int = 30) -> httpx.Response:
+async def get_info(token: str, path: str, session: ClientSession = None, fields: str = "", preview_size: str = "",
+                   sort: str = "", preview_crop: str = False, limit: int = 100, offset: int = 0,
+                   timeout: int = 30) -> ClientResponse:
     """
     Get information about a file or directory on the disk.
 
@@ -58,30 +64,40 @@ async def get_info(token: str, path: str, fields: str = "", preview_size: str = 
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server containing the information about the file or directory.
+    - ClientResponse: The response from the server containing the information about the file or directory.
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "fields": fields,
-                "preview_size": preview_size,
-                "sort": sort,
-                "preview_crop": preview_crop,
-                "limit": limit,
-                "offset": offset,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    preview_crop = "true" if preview_crop else "false"
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "fields": fields,
+            "preview_size": preview_size,
+            "sort": sort,
+            "preview_crop": preview_crop,
+            "limit": limit,
+            "offset": offset,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-async def update_info(token: str, path: str, body: dict, fields: str = "", timeout: int = 30) -> httpx.Response:
+async def update_info(token: str, path: str, body: dict, session: ClientSession = None, fields: str = "",
+                      timeout: int = 30) -> ClientResponse:
     """
     Update information about a file or directory on the disk.
 
@@ -93,26 +109,34 @@ async def update_info(token: str, path: str, body: dict, fields: str = "", timeo
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the update operation.
+    - ClientResponse: The response from the server after the update operation.
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.patch(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "body": body,
-                "fields": fields,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.patch(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "body": body,
+            "fields": fields,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-async def mkdir(token: str, path: str, fields: str = "", timeout: int = 30) -> httpx.Response:
+async def mkdir(token: str, path: str, session: ClientSession = None, fields: str = "",
+                timeout: int = 30) -> ClientResponse:
     """
     Create a new directory on the disk.
 
@@ -123,26 +147,33 @@ async def mkdir(token: str, path: str, fields: str = "", timeout: int = 30) -> h
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the creation operation.
+    - ClientResponse: The response from the server after the creation operation.
     """
     url = BASE_URL
 
-    async with httpx.AsyncClient() as client:
-        response = await client.put(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "fields": fields,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.put(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "fields": fields,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-async def copy(token: str, from_path: str, to_path: str, fields: str = "", force_async: bool = False,
-               overwrite: bool = False, timeout: int = 30) -> httpx.Response:
+async def copy(token: str, from_path: str, to_path: str, session: ClientSession = None, fields: str = "",
+               force_async: bool = False, overwrite: bool = False, timeout: int = 30) -> ClientResponse:
     """
     Copy a file or directory from one location to another on the disk.
 
@@ -156,28 +187,39 @@ async def copy(token: str, from_path: str, to_path: str, fields: str = "", force
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the copy operation.
+    - ClientResponse: The response from the server after the copy operation.
     """
     url = BASE_URL + "/copy"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "from": utils.parse_path(from_path),
-                "path": utils.parse_path(to_path),
-                "fields": fields,
-                "force_async": force_async,
-                "overwrite": overwrite,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    force_async = "true" if force_async else "false"
+    overwrite = "true" if overwrite else "false"
+
+    response = await session.post(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "from": utils.parse_path(from_path),
+            "path": utils.parse_path(to_path),
+            "fields": fields,
+            "force_async": force_async,
+            "overwrite": overwrite,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-async def get_url(token: str, path: str, fields: str = "", timeout: int = 30) -> httpx.Response:
+async def get_url(token: str, path: str, session: ClientSession = None, fields: str = "",
+                  timeout: int = 30) -> ClientResponse:
     """
     Get the download URL for a file or directory on the disk.
 
@@ -188,26 +230,34 @@ async def get_url(token: str, path: str, fields: str = "", timeout: int = 30) ->
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server containing the download URL for the file or directory.
+    - ClientResponse: The response from the server containing the download URL for the file or directory.
     """
     url = BASE_URL + "/download"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "fields": fields,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "fields": fields,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-async def get_all_files(token: str, fields: str = "", media_type: str = "", preview_size: str = "", sort: str = "",
-                        preview_crop: bool = False, limit: int = 100, offset: int = 0, timeout: int = 30) -> httpx.Response:
+async def get_all_files(token: str, session: ClientSession = None, fields: str = "", media_type: str = "",
+                        preview_size: str = "", sort: str = "", preview_crop: bool = False, limit: int = 100,
+                        offset: int = 0, timeout: int = 30) -> ClientResponse:
     """
     Get a list of all files and directories on the disk.
 
@@ -223,31 +273,41 @@ async def get_all_files(token: str, fields: str = "", media_type: str = "", prev
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server containing a list of all files and directories.
+    - ClientResponse: The response from the server containing a list of all files and directories.
     """
     url = BASE_URL + "/files"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "fields": fields,
-                "media_type": media_type,
-                "preview_size": preview_size,
-                "sort": sort,
-                "preview_crop": preview_crop,
-                "limit": limit,
-                "offset": offset,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    preview_crop = "true" if preview_crop else "false"
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "fields": fields,
+            "media_type": media_type,
+            "preview_size": preview_size,
+            "sort": sort,
+            "preview_crop": preview_crop,
+            "limit": limit,
+            "offset": offset,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-async def get_last_uploads(token: str, fields: str = "", media_type: str = "", preview_size: str = "",
-                           preview_crop: bool = False, limit: int = 100, timeout: int = 30) -> httpx.Response:
+async def get_last_uploads(token: str, session: ClientSession = None, fields: str = "", media_type: str = "",
+                           preview_size: str = "", preview_crop: bool = False, limit: int = 100,
+                           timeout: int = 30) -> ClientResponse:
     """
     Get a list of the last uploaded files and directories on the disk.
 
@@ -261,31 +321,38 @@ async def get_last_uploads(token: str, fields: str = "", media_type: str = "", p
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server containing a list of the last uploaded files and directories.
+    - ClientResponse: The response from the server containing a list of the last uploaded files and directories.
     """
     url = BASE_URL + "/last-uploaded"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "fields": fields,
-                "media_type": media_type,
-                "preview_size": preview_size,
-                "preview_crop": preview_crop,
-                "limit": limit,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    preview_crop = "true" if preview_crop else "false"
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "fields": fields,
+            "media_type": media_type,
+            "preview_size": preview_size,
+            "preview_crop": preview_crop,
+            "limit": limit,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def move(token: str, from_path: str, to_path: str, fields: str = "", force_async: bool = False,
-               overwrite: bool = False, timeout: int = 30) -> httpx.Response:
+async def move(token: str, from_path: str, to_path: str, session: ClientSession = None, fields: str = "",
+               force_async: bool = False, overwrite: bool = False, timeout: int = 30) -> ClientResponse:
     """
     Move a file or directory from one location to another on the disk.
 
@@ -299,31 +366,40 @@ async def move(token: str, from_path: str, to_path: str, fields: str = "", force
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the move operation.
+    - ClientResponse: The response from the server after the move operation.
     """
     url = BASE_URL + "/move"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "from": utils.parse_path(from_path),
-                "path": utils.parse_path(to_path),
-                "fields": fields,
-                "force_async": force_async,
-                "overwrite": overwrite,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    force_async = "true" if force_async else "false"
+    overwrite = "true" if overwrite else "false"
+
+    response = await session.post(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "from": utils.parse_path(from_path),
+            "path": utils.parse_path(to_path),
+            "fields": fields,
+            "force_async": force_async,
+            "overwrite": overwrite,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def get_all_public(token: str, fields: str = "", preview_size: str = "", type_filter: str = "",
-                         preview_crop: bool = False, limit: int = 100, offset: int = 0, timeout: int = 30) -> httpx.Response:
+async def get_all_public(token: str, session: ClientSession = None, fields: str = "", preview_size: str = "",
+                         type_filter: str = "", preview_crop: bool = False, limit: int = 100, offset: int = 0,
+                         timeout: int = 30) -> ClientResponse:
     """
     Get a list of all public files and directories on the disk.
 
@@ -338,32 +414,39 @@ async def get_all_public(token: str, fields: str = "", preview_size: str = "", t
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server containing a list of all public files and directories.
+    - ClientResponse: The response from the server containing a list of all public files and directories.
     """
     url = BASE_URL + "/public"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "fields": fields,
-                "preview_size": preview_size,
-                "type_filter": type_filter,
-                "preview_crop": preview_crop,
-                "limit": limit,
-                "offset": offset,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    preview_crop = "true" if preview_crop else "false"
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "fields": fields,
+            "preview_size": preview_size,
+            "type_filter": type_filter,
+            "preview_crop": preview_crop,
+            "limit": limit,
+            "offset": offset,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def publish(token: str, path: str, body: dict, fields: str = "", allow_address_access: bool = False,
-              timeout: int = 30) -> httpx.Response:
+async def publish(token: str, path: str, body: dict, session: ClientSession = None, fields: str = "",
+                  allow_address_access: bool = False, timeout: int = 30) -> ClientResponse:
     """
     Publish a file or directory on the disk.
 
@@ -376,29 +459,37 @@ async def publish(token: str, path: str, body: dict, fields: str = "", allow_add
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the publish operation.
+    - ClientResponse: The response from the server after the publish operation.
     """
     url = BASE_URL + "/publish"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.put(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "body": body,
-                "fields": fields,
-                "allow_address_access": allow_address_access,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    allow_address_access = "true" if allow_address_access else "false"
+
+    response = await session.put(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "body": body,
+            "fields": fields,
+            "allow_address_access": allow_address_access,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def unpublish(token: str, path: str, fields: str = "", timeout: int = 30) -> httpx.Response:
+async def unpublish(token: str, path: str, session: ClientSession = None, fields: str = "",
+                    timeout: int = 30) -> ClientResponse:
     """
     Unpublish a file or directory on the disk.
 
@@ -409,27 +500,33 @@ async def unpublish(token: str, path: str, fields: str = "", timeout: int = 30) 
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the unpublish operation.
+    - ClientResponse: The response from the server after the unpublish operation.
     """
     url = BASE_URL + "/unpublish"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.put(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "fields": fields,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    response = await session.put(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "fields": fields,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def get_upload_url(token: str, path: str, fields: str = "", overwrite: bool = False, timeout: int = 30) -> httpx.Response:
+async def get_upload_url(token: str, path: str, session: ClientSession = None, fields: str = "",
+                         overwrite: bool = False, timeout: int = 30) -> ClientResponse:
     """
     Get the upload URL for a file or directory on the disk.
 
@@ -441,28 +538,36 @@ async def get_upload_url(token: str, path: str, fields: str = "", overwrite: boo
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server containing the upload URL for the file or directory.
+    - ClientResponse: The response from the server containing the upload URL for the file or directory.
     """
     url = BASE_URL + "/upload"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.psarse_path(path),
-                "fields": fields,
-                "overwrite": overwrite,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    overwrite = "true" if overwrite else "false"
+
+    response = await session.get(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "fields": fields,
+            "overwrite": overwrite,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
 
 
-
-
-async def upload(token: str, path: str, upload_url: str, fields: str = "", disable_redirects: bool = False, timeout: int = 30) -> httpx.Response:
+async def upload(token: str, path: str, upload_url: str, session: ClientSession = None, fields: str = "",
+                 disable_redirects: bool = False, timeout: int = 30) -> ClientResponse:
     """
     Upload a file or directory to the disk.
 
@@ -475,23 +580,30 @@ async def upload(token: str, path: str, upload_url: str, fields: str = "", disab
     - timeout (int, optional): The timeout for the request in seconds. Defaults to 30.
 
     Returns:
-    - httpx.Response: The response from the server after the upload operation.
+    - ClientResponse: The response from the server after the upload operation.
     """
     url = BASE_URL + "/upload"
 
-    async with httpx.AsyncClient() as client:
-        response = await client.post(
-            url=url,
-            headers=utils.generate_headers(token=token),
-            params={
-                "path": utils.parse_path(path),
-                "url": upload_url,
-                "fields": fields,
-                "disable_redirects": disable_redirects,
-            },
-            timeout=timeout
-        )
+    close_session = False
+    if not session:
+        session = ClientSession()
+        close_session = True
+
+    disable_redirects = "true" if disable_redirects else "false"
+
+    response = await session.post(
+        url=url,
+        headers=utils.generate_headers(token=token),
+        params={
+            "path": utils.parse_path(path),
+            "url": upload_url,
+            "fields": fields,
+            "disable_redirects": disable_redirects,
+        },
+        timeout=timeout
+    )
+
+    if close_session:
+        await session.close()
 
     return response
-
-
