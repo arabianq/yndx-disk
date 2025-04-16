@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="yndx_disk",
-    version="0.3",
+    version="0.3.1",
     packages=find_packages(),
     install_requires=[
         "httpx", "aiofiles"
