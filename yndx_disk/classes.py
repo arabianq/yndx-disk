@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 
 
-@dataclass
+@dataclass(frozen=True)
 class BaseObject:
     token: str
 
@@ -21,7 +21,7 @@ class BaseObject:
     in_trash: bool = False
 
 
-@dataclass
+@dataclass(frozen=True)
 class File(BaseObject):
     antivirus_status: str = ""
     file_url: str = ""
@@ -34,7 +34,7 @@ class File(BaseObject):
     size: int = 0
 
 
-@dataclass
+@dataclass(frozen=True)
 class Directory(BaseObject):
     @property
     async def size(self) -> int:
