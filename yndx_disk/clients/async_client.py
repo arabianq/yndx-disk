@@ -61,7 +61,7 @@ class AsyncDiskClient:
         Initialize an instance of the AsyncDiskClient class.
 
         Parameters:
-        - token (str): The authentication token for the server.
+        - token (str): The authentication token for the  server.
         - auto_update_info (bool, optional): Whether to automatically update the client's information. Defaults to True.
 
         Returns:
@@ -83,9 +83,6 @@ class AsyncDiskClient:
         """
         loop = asyncio.new_event_loop()
         loop.run_until_complete(self.session.close())
-
-    def __del__(self) -> None:
-        self._cleanup()
 
     async def _wait_for_operation_to_finish(self, operation_id: str) -> bool:
         """
