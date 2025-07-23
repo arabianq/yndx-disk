@@ -4,9 +4,7 @@ import yndx_disk.api.disk as api_disk
 import yndx_disk.api.resources as api_resources
 import yndx_disk.api.operations as api_operations
 import yndx_disk.api.trash_resources as api_trash_resources
-import yndx_disk.api.public_resources as api_public_resources
 import yndx_disk.api.exceptions as api_exceptions
-from yndx_disk.api.utils import parse_path
 
 from yndx_disk.classes import File, Directory
 
@@ -505,6 +503,8 @@ class AsyncDiskClient:
                     yield chunk
 
         upload_response = await self.session.put(url=upload_url, data=chunked_file_reader(file_path, chunk_size))
+
+        await self._wait_for_operation_to_finish(operation_id)
 
         upload_response_json = await upload_response.json()
 
